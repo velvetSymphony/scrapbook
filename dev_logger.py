@@ -5,6 +5,7 @@ from datetime import datetime
 # Content keywords below:
 # Tasks, Progress, Challenges, Solutions, Decisions, Learnings, Next Steps, Additional Notes, Conclusion
 
+backslash_character = chr(10)
 
 def add_content(content_type):
     contents = []
@@ -18,10 +19,11 @@ def add_content(content_type):
 
 
 def generate_dev_log(heading, contents):
-    clean_heading = heading.replace("_", " ").capitalize()
+    clean_heading = heading.replace("_", " ")
+    # Cannot have \n or backslashes in general for brace substitutions in f-strings: see https://stackoverflow.com/questions/67680296/syntaxerror-f-string-expression-part-cannot-include-a-backslash
     markdown_content = f"""
 ## {clean_heading}
-{chr(10).join([f'- {content}' for content in contents])}
+{backslash_character.join([f'- {content}' for content in contents])}
 """
     return markdown_content
 
@@ -66,7 +68,6 @@ if __name__ == "__main__":
     for heading_to_complete in headings_to_complete:
         points = add_content(heading_to_complete)
         markdown_content = generate_dev_log(heading_to_complete, points)
-        print(markdown_content)
         write_to_log_file(file_path, markdown_content)
 
     print(f"\nDev log created: {file_path}")
