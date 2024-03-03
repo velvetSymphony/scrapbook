@@ -1,24 +1,54 @@
-# Ideas
+# Scrapbook
 
-- Pomodoro Timer: Create a simple Pomodoro timer script that helps you focus on tasks by breaking your work into intervals with short breaks.
+- Scrapbook is a way to journal your goals, challenges, solutions and more, on a daily basis, which I guess is aimed to simplify tracking what you do everyday (kinda like note taking really)
+- I wanted a simple way of logging what I do everyday on my terminal (without really installing/opening other note taking apps), hence the script.
 
-- Time Tracking: Build a tool to log and analyze how you spend your time. This could involve tracking different activities and generating reports.
+## What it does:
 
-- Calendar Integration: Integrate your terminal with a calendar tool, allowing you to view, add, and manage events directly from the command line.
+- The script generates a markdown document with a bunch of pre-coded headers such as "Challenges", "Project Overview", "Tasks" etc
+    - The idea is to structure my notes everyday, as I tend to have random headings or sometimes (well a lot of times) I don't really log much of what I do.
+- It prompts the user to enter points for a specific sub-heading (such as tasks).
+- Once done, a markdown is generated in the `dev-logs` directory in your current working directory.
 
-- Alarm Clock: Create a command-line alarm clock that reminds you of important events or breaks.
+## Functionality:
 
-- Focus Mode: Develop a script that helps you enter a "focus mode" by blocking distracting websites or apps during specific periods.
+- Generates markdown doc of everyday notes.
+- Simple structure.
+- Easy way to filter through your notes everyday using unix tools.
 
-- Daily Summary: Build a tool that provides a summary of your day, including completed tasks, upcoming events, and time spent on various activities.
+## Limitations:
 
-- Work Log: Create a simple log where you can record your daily accomplishments and challenges, helping you reflect on your productivity.
+- Hard coded markdown headers in the code.
+- Generate only once per day.
+    - If you attempt to run it more than once, it will still work, it just appends it to the same log file (all the headers).
+- No flexibility to add more headers/remove headers at the moment.
 
-- Break Reminder: Build a tool that reminds you to take breaks at regular intervals to avoid burnout.
+## Ideas/Potential solutions:
 
-Want to do maybe one of these tops.
+- Make it config friendly, i.e enable the user to create a config file which will influence the behavior of the tool.
+    - This can be used to customise the structure of the log file.
+    - Generate a sample config template (a default one).
+    - And potentially other things (idk right now).
 
-## Pomodoro timer
+- Create installation script for tool. Make it system-wide (?).
+- Enable users to edit current log file for the day or create a new log file for the day.
+- Provide option flags for user to customise specific parts of the log file once generated.
+    - If you've already generated one for the day and you've only filled out the task bit:
+        - Provide user with options on what to modify/change?
+        ```shell
+        scrapbook -c "Learnings"
+        ```
+        - where `-c` is change.
+        - This will change/modify the Learnings section.
+    - Provide prompt for user when a log file for the day has already been generated:
+    ```shell
+    scrapbook 
+    ```
+    ```text
+    You've already generated a log file for the day, would you like to edit the current log file or generate a new one?
+    ```
+- Provide default values for certain headers:
+    - `Project Name` is most likely to remain same for a couple days/weeks/months.
+    - Makes it easier for the user to skip through things.
 
-- I usually do my stuff in 20 mins splits.
-- Create something that starts the timer, and then basically alarms you by flashing your terminal tab for 20 mins.
+- Put in a help function for users.
