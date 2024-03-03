@@ -52,3 +52,6 @@
     - Makes it easier for the user to skip through things.
 
 - Put in a help function for users.
+- Directory specific config (i.e change path names etc)
+    - Hierarchical config files, so having a config file in the current directory will override the base config.
+    - This is probably useful if you have multiple projects and want to manage how the directory, structure of the logs will look like per project.
