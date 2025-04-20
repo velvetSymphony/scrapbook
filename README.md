@@ -55,3 +55,4 @@
 - Directory specific config (i.e change path names etc)
     - Hierarchical config files, so having a config file in the current directory will override the base config.
     - This is probably useful if you have multiple projects and want to manage how the directory, structure of the logs will look like per project.
+- Enable moving between words (if that makes sense). At the moment, you can only type uni-directionally or backspace the whole sentence you're typing. You cannot for example use your arrow keys to move between words in a sentence, it prints out the ANSI codes for those keys. Find a way to move between the words easily.
