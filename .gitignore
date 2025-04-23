@@ -1,3 +1,6 @@
 dev-logs/
 ideas.md
 .scrapbook/
+./ruff_cache/
+*.pyc
+__pycache__/
