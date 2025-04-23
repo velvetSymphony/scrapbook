@@ -16,7 +16,7 @@ logging.basicConfig(
 # See function generate_markdown to know why you need this.
 backslash_character = chr(10)
 
-config_file_name = "project_config.yaml"
+config_file_name = "scrapbook_config.yaml"
 default_config_file = Path.home() / ".config" / config_file_name
 logs_dir = "scraps"
 newline = "\n"
@@ -31,12 +31,12 @@ def find_config_file(project_dir, config_file_name):
         logging.info(
             f"Locating project config file for project directory: {project_dir}"
         )
-        project_config_file = os.path.join(project_dir, config_file_name)
-        logging.info(f"Project config file found: {project_config_file}")
-        if not os.path.exists(project_config_file):
-            logging.info("Project config file not found. Using default config file")
-            project_config_file = default_config_file
-        return project_config_file
+        scrapbook_config_file = os.path.join(project_dir, config_file_name)
+        logging.info(f"Scrapbook config file found: {scrapbook_config_file}")
+        if not os.path.exists(scrapbook_config_file):
+            logging.info("Scrapbook config file not found. Using default config file")
+            scrapbook_config_file = default_config_file
+        return scrapbook_config_file
     except FileNotFoundError as e:
         print(f"Error: {e} - File not found")
 
