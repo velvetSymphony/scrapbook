@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "scrapbook-cli"
-version = "1.0.2"
+version = "1.0.3"
 requires-python = ">=3.9.0"
 dependencies = ["PyYAML == 6.0.2"]
 description = "Logging and journaling from the terminal"
@@ -15,7 +15,7 @@ license = {text = "GPL-3.0-or-later"}
 readme = {file = "README.md", content-type = "text/markdown"}
 
 [project.scripts]
-sb = "scrapbook:main"
+sb = "src.scrapbook.main:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
