@@ -26,19 +26,36 @@ class NoteTakingError(Exception):
     pass
 
 
+def create_scrapbook_config_file():
+    # Default headings used.
+    config = {
+        "headings": {
+            "tasks": "Tasks",
+            "challenges": "Challenges",
+            "solutions": "Solutions",
+            "decisions_made": "Decisions Made",
+            "learnings": "Learnings",
+            "next_steps": "Next Steps",
+            "addtional_notes": "Additional Notes",
+            "conclusion": "Conclusion",
+        }
+    }
+    with open(file=default_config_file, mode="w") as f:
+        yaml.dump(config, f)
+    return default_config_file
+
+
 def find_config_file(project_dir, config_file_name):
-    try:
-        logging.info(
-            f"Locating project config file for project directory: {project_dir}"
-        )
-        scrapbook_config_file = os.path.join(project_dir, config_file_name)
-        logging.info(f"Scrapbook config file found: {scrapbook_config_file}")
-        if not os.path.exists(scrapbook_config_file):
-            logging.info("Scrapbook config file not found. Using default config file")
-            scrapbook_config_file = default_config_file
-        return scrapbook_config_file
-    except FileNotFoundError as e:
-        print(f"Error: {e} - File not found")
+    logging.info(f"Locating project config file for project directory: {project_dir}")
+    scrapbook_config_file = os.path.join(project_dir, config_file_name)
+    logging.info(f"Scrapbook config file found: {scrapbook_config_file}")
+    if not os.path.exists(scrapbook_config_file):
+        logging.info("Scrapbook config file not found. Using default config file")
+        scrapbook_config_file = default_config_file
+        if not scrapbook_config_file:
+            logging.info("Default scrapbook config file not found. Creating one...")
+            scrapbook_config_file = create_scrapbook_config_file()
+    return scrapbook_config_file
 
 
 def read_config_file(config_file):
@@ -78,7 +95,7 @@ def generate_markdown(heading, contents):
 ## {clean_heading}
 {backslash_character.join([f"- {content}" for content in contents])}
 """
-    logging.info('Markdown content generated')
+    logging.info("Markdown content generated")
     return markdown_content
 
 
@@ -92,10 +109,18 @@ def write_to_log_file(file_path, markdown_content):
         logging.error(f"Failed to write to log file: {str(e)}")
         raise NoteTakingError(f"Failed to write to log file: {str(e)}")
 
+
 def command_line_options():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-h', '--help', action='help', default=argparse.SUPPRESS, help='Display this help message')
+    parser.add_argument(
+        "-h",
+        "--help",
+        action="help",
+        default=argparse.SUPPRESS,
+        help="Display this help message",
+    )
     return parser.parse_args()
+
 
 def main():
     try:
