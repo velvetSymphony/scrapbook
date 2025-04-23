@@ -131,7 +131,3 @@ def main():
 
     except NoteTakingError as e:
         logging.error(f"Fatal error: {str(e)}")
-
-
-if __name__ == "__main__":
-    main()
