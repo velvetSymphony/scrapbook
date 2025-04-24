@@ -8,7 +8,8 @@ import argparse
 
 
 debug_log_filename = "scrapbook-debug.log"
-debug_log_filepath = f"/var/log/{debug_log_filename}"
+debug_log_filedir = "scrapbooking-cli-debug-logs"
+debug_log_filepath = Path.home() / debug_log_filedir / debug_log_filename
 
 logging.basicConfig(
     level=logging.INFO,
@@ -28,6 +29,18 @@ newline = "\n"
 
 class NoteTakingError(Exception):
     pass
+
+
+def check_debug_log_filedir(debug_log_filedir):
+    if not os.path.exists(debug_log_filedir):
+        try:
+            os.makedirs(debug_log_filedir)
+            logging.info(f"Directory '{debug_log_filedir}' created successfully.")
+        except OSError as e:
+            logging.error(f"Error creating directory: {e}")
+            raise OSError(f"Error creating directory: {e}")
+    else:
+        logging.info(f"Directory '{debug_log_filedir}' exists.")
 
 
 def create_scrapbook_config_file():
@@ -53,7 +66,9 @@ def find_config_file(project_dir, config_file_name):
     logging.info(f"Locating project config file for project directory: {project_dir}")
     scrapbook_config_file = os.path.join(project_dir, config_file_name)
     if not os.path.exists(scrapbook_config_file):
-        logging.info(f"Scrapbook config file not found. Using default config file: {default_config_file} if it exists...")
+        logging.info(
+            f"Scrapbook config file not found. Using default config file: {default_config_file} if it exists..."
+        )
         scrapbook_config_file = default_config_file
         if not os.path.exists(scrapbook_config_file):
             logging.info("Default config file not found. Creating one...")
@@ -126,16 +141,18 @@ def command_line_options():
 
 
 def main():
+    check_debug_log_filedir(debug_log_filedir)
     print(f"Debug logs can be found at: {debug_log_filepath}")
     try:
         project_name = input("Enter the project name: ")
         author_name = input("Enter your name: ")
         project_overview = input("Enter project overview: ")
-        logging.info(f'Generating logs for project: {project_name}, author: {author_name}')
-        
+        logging.info(
+            f"Generating logs for project: {project_name}, author: {author_name}"
+        )
+
         config_file = find_config_file("./config", config_file_name)
         headings = read_config_file(config_file)
-
 
         current_datetime = datetime.now().strftime("%Y-%m-%d_%H%M%S")
         file_path = Path(scraps_dir) / f"{current_datetime}_dev_log.md"
@@ -163,5 +180,6 @@ def main():
     except NoteTakingError as e:
         logging.error(f"Fatal error: {e}")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
