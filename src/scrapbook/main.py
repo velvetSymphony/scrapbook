@@ -48,12 +48,11 @@ def create_scrapbook_config_file():
 def find_config_file(project_dir, config_file_name):
     logging.info(f"Locating project config file for project directory: {project_dir}")
     scrapbook_config_file = os.path.join(project_dir, config_file_name)
-    logging.info(f"Scrapbook config file found: {scrapbook_config_file}")
     if not os.path.exists(scrapbook_config_file):
-        logging.info("Scrapbook config file not found. Using default config file")
+        logging.info(f"Scrapbook config file not found. Using default config file: {default_config_file} if it exists...")
         scrapbook_config_file = default_config_file
-        if not scrapbook_config_file:
-            logging.info("Default scrapbook config file not found. Creating one...")
+        if not os.path.exists(scrapbook_config_file):
+            logging.info("Default config file not found. Creating one...")
             scrapbook_config_file = create_scrapbook_config_file()
     return scrapbook_config_file
 
