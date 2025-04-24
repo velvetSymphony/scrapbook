@@ -24,7 +24,7 @@ This project is a work-in-progress and should be considered experimental. It is 
 Installing is as simple as:
 
 ```bash
-pip install scraps-cli
+pip install scrapbooking-cli
 ```
 
 Invoke using `sb`:
