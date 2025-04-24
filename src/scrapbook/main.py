@@ -6,10 +6,14 @@ import logging
 from pathlib import Path
 import argparse
 
+
+debug_log_filename = "scrapbook-debug.log"
+debug_log_filepath = f"/var/log/{debug_log_filename}"
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
-    filename="/var/log/scrapbook-debug.log",
+    filename=debug_log_filepath,
     filemode="a",
 )
 
@@ -18,7 +22,7 @@ backslash_character = chr(10)
 
 config_file_name = "scrapbook_config.yaml"
 default_config_file = Path.home() / ".config" / config_file_name
-logs_dir = "scraps"
+scraps_dir = "scraps"
 newline = "\n"
 
 
@@ -122,6 +126,7 @@ def command_line_options():
 
 
 def main():
+    print(f"Debug logs can be found at: {debug_log_filepath}")
     try:
         project_name = input("Enter the project name: ")
         author_name = input("Enter your name: ")
@@ -133,7 +138,7 @@ def main():
 
 
         current_datetime = datetime.now().strftime("%Y-%m-%d_%H%M%S")
-        file_path = Path(logs_dir) / f"{current_datetime}_dev_log.md"
+        file_path = Path(scraps_dir) / f"{current_datetime}_dev_log.md"
 
         markdown_content = f"""
                 # Development Log - {project_name}
