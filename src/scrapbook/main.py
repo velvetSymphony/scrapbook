@@ -8,15 +8,10 @@ import argparse
 
 
 debug_log_filename = "scrapbook-debug.log"
-debug_log_filedir = "scrapbooking-cli-debug-logs"
-debug_log_filepath = Path.home() / debug_log_filedir / debug_log_filename
+debug_log_filedirname = "scrapbooking-cli-debug-logs"
+debug_log_filedirpath = Path.home() / debug_log_filedirname
+debug_log_filepath = debug_log_filedirpath / debug_log_filename
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    filename=debug_log_filepath,
-    filemode="a",
-)
 
 # See function generate_markdown to know why you need this.
 backslash_character = chr(10)
@@ -31,16 +26,17 @@ class NoteTakingError(Exception):
     pass
 
 
-def check_debug_log_filedir(debug_log_filedir):
-    if not os.path.exists(debug_log_filedir):
+def check_debug_log_path(debug_log_filedirpath):
+    if not os.path.exists(debug_log_filedirpath):
         try:
-            os.makedirs(debug_log_filedir)
-            logging.info(f"Directory '{debug_log_filedir}' created successfully.")
+            os.makedirs(debug_log_filedirpath)
+            print(f"Directory '{debug_log_filedirpath}' created successfully.")
         except OSError as e:
-            logging.error(f"Error creating directory: {e}")
             raise OSError(f"Error creating directory: {e}")
     else:
-        logging.info(f"Directory '{debug_log_filedir}' exists.")
+        print(
+            f"Directory '{debug_log_filedirpath}' exists. Check {debug_log_filepath} for debug/trace logs."
+        )
 
 
 def create_scrapbook_config_file():
@@ -141,8 +137,13 @@ def command_line_options():
 
 
 def main():
-    check_debug_log_filedir(debug_log_filedir)
-    print(f"Debug logs can be found at: {debug_log_filepath}")
+    check_debug_log_path(debug_log_filedirpath)
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s - %(levelname)s - %(message)s",
+        filename=debug_log_filepath,
+        filemode="a",
+    )
     try:
         project_name = input("Enter the project name: ")
         author_name = input("Enter your name: ")
@@ -155,10 +156,10 @@ def main():
         headings = read_config_file(config_file)
 
         current_datetime = datetime.now().strftime("%Y-%m-%d_%H%M%S")
-        file_path = Path(scraps_dir) / f"{current_datetime}_dev_log.md"
+        file_path = Path(scraps_dir) / f"{current_datetime}_log_entry.md"
 
         markdown_content = f"""
-                # Development Log - {project_name}
+                # Log Entry - {project_name}
 
                 ## Date: {current_datetime}
 
@@ -175,7 +176,7 @@ def main():
                 markdown_content += generate_markdown(heading, points)
 
         write_to_log_file(file_path, markdown_content)
-        print(f"\nDevelopment log created successfully: {file_path}")
+        print(f"\nScrapbook journal entry created successfully: {file_path}")
 
     except NoteTakingError as e:
         logging.error(f"Fatal error: {e}")
