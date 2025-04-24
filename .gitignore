@@ -4,3 +4,5 @@ ideas.md
 ./ruff_cache/
 *.pyc
 __pycache__/
+scrapbook-debug.log
+scraps/

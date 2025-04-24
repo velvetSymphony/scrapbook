@@ -9,7 +9,7 @@ import argparse
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
-    filename="scrapbook-debug.log",
+    filename="/var/log/scrapbook-debug.log",
     filemode="a",
 )
 
@@ -123,12 +123,14 @@ def command_line_options():
 
 def main():
     try:
-        config_file = find_config_file("./config", config_file_name)
-        headings = read_config_file(config_file)
-
         project_name = input("Enter the project name: ")
         author_name = input("Enter your name: ")
         project_overview = input("Enter project overview: ")
+        logging.info(f'Generating logs for project: {project_name}, author: {author_name}')
+        
+        config_file = find_config_file("./config", config_file_name)
+        headings = read_config_file(config_file)
+
 
         current_datetime = datetime.now().strftime("%Y-%m-%d_%H%M%S")
         file_path = Path(logs_dir) / f"{current_datetime}_dev_log.md"
@@ -154,4 +156,7 @@ def main():
         print(f"\nDevelopment log created successfully: {file_path}")
 
     except NoteTakingError as e:
-        logging.error(f"Fatal error: {str(e)}")
+        logging.error(f"Fatal error: {e}")
+
+if __name__ == '__main__':
+    main()
