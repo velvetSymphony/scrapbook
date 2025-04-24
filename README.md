@@ -27,6 +27,12 @@ Installing is as simple as:
 pip install scraps-cli
 ```
 
+Invoke using `sb`:
+
+```bash
+sb
+```
+
 ### Config-based approach
 
 When `scraps-cli` is installed for the first time, `scraps-cli` searches for a config file in your current directory named `scrapbook_config.yaml`. If one is not found in your current directoy, a default config is used/created (if the default is not found either).
