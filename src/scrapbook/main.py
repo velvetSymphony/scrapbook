@@ -156,7 +156,10 @@ def main():
         headings = read_config_file(config_file)
 
         current_datetime = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
-        file_path = Path(scraps_dir) / f"{current_datetime}_log_entry.md"
+        current_date = datetime.now().strftime("%Y-%m-%d")
+        current_month= datetime.now().strftime("%B")
+        current_year = datetime.now().year
+        file_path = Path(scraps_dir) / f"{current_year}" / f"{current_month}" / f"{current_date}" / f"{current_datetime}_log_entry.md"
 
         markdown_content = \
 f"""# Log Entry : {project_name}
