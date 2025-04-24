@@ -54,7 +54,7 @@ def create_scrapbook_config_file():
         }
     }
     with open(file=default_config_file, mode="w") as f:
-        yaml.dump(config, f)
+        yaml.dump(config, f, default_flow_style=False, sort_keys=False)
     return default_config_file
 
 
@@ -155,20 +155,20 @@ def main():
         config_file = find_config_file("./config", config_file_name)
         headings = read_config_file(config_file)
 
-        current_datetime = datetime.now().strftime("%Y-%m-%d_%H%M%S")
+        current_datetime = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
         file_path = Path(scraps_dir) / f"{current_datetime}_log_entry.md"
 
-        markdown_content = f"""
-                # Log Entry - {project_name}
+        markdown_content = \
+f"""# Log Entry : {project_name}
 
-                ## Date: {current_datetime}
+## MetaData:
+- Author: {author_name}
+- Date written: {current_datetime}
 
-                ## Author: {author_name}
+## Project Overview:
+{project_overview}
 
-                ## Project Overview:
-                {project_overview}
-
-                """
+"""
         # Collect and add content for each heading
         for heading in headings:
             points = add_content(heading)
