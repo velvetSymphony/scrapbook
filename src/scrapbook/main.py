@@ -118,10 +118,10 @@ def write_to_log_file(file_path, markdown_content):
         os.makedirs(file_path.parent, exist_ok=True)
         with open(file_path, "a") as file:
             file.write(markdown_content)
-        logging.info(f"Wrote to log file: {file_path}")
+        logging.info(f"Scrapbook entry written to file: {file_path}")
     except Exception as e:
-        logging.error(f"Failed to write to log file: {str(e)}")
-        raise NoteTakingError(f"Failed to write to log file: {str(e)}")
+        logging.error(f"Failed to write scrapbook entry: {str(e)}")
+        raise NoteTakingError(f"Failed to write scrapbook entry`: {str(e)}")
 
 
 def command_line_options():
