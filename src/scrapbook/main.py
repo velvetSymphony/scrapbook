@@ -46,11 +46,8 @@ def create_scrapbook_config_file():
             "tasks": "Tasks",
             "challenges": "Challenges",
             "solutions": "Solutions",
-            "decisions_made": "Decisions Made",
             "learnings": "Learnings",
-            "next_steps": "Next Steps",
             "addtional_notes": "Additional Notes",
-            "conclusion": "Conclusion",
         }
     }
     with open(file=default_config_file, mode="w") as f:
