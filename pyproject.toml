@@ -4,9 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "scrapbooking-cli"
-version = "1.0.4"
+version = "1.1.0"
 requires-python = ">=3.9.0"
-dependencies = ["PyYAML == 6.0.2"]
 description = "Logging and journaling from the terminal"
 authors = [
     {name = "velvetSymphony", email = "abhishek@achandrasekar.com"},
