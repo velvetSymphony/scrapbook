@@ -82,6 +82,8 @@ def main():
         filemode="a",
     )
     try:
+        print("Happy scrapbooking! Please use the format '{heading}: {note}' to define Markdown headings and notes under the defined heading.")
+        print()
         project_name = input("Enter the project name: ")
         author_name = input("Enter your name: ")
         project_overview = input("Enter project overview: ")
@@ -135,5 +137,4 @@ f"""# Log Entry : {project_name}
 
 
 if __name__ == "__main__":
-    print("Happy scrapbooking! Please use the format '{heading}: {note}' to define Markdown headings and notes under the defined heading.")
     main()
